@@ -2,29 +2,19 @@ yii2-mytest
 =================
 
 
-Расширение предназначено для ...
 
-Особенности и преимущества:
-
-*	1 преимущество
-*	2 преимущество
-*	3 преимущество
-
-
-  
 Установка
 ------------------
 * Установка пакета с помощью Composer
 ```
-composer require klisl/yii2-mytest
+composer require ispomazkin/yii2-chevrolet
 ```
 
 * Выполнить миграцию для создания нужной таблицы в базе данных (консоль):
 ```
-yii migrate --migrationPath=@klisl/mytest/migrations --interactive=0
+yii migrate --migrationPath=@ispomazkin/migrations --interactive=0
 ```
 
 Использование
 ------------------
 
-Мой блог: [klisl.com](http://klisl.com)  
