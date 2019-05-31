@@ -32,6 +32,19 @@
     display:none;
 }
 
+
+.procode
+{
+    font-weight: 700;
+    text-decoration: underline;
+    cursor:pointer;
+}
+
+.procode:hover
+{
+    text-decoration: none;
+}
+
 @media(max-width:360px) {
     .mobile_hidden
     {
