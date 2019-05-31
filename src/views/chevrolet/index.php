@@ -23,9 +23,9 @@ ChevroletAssetBundle::register($this);
         <th>Год выпуска</th>
     </tr>
     <?php foreach($data as $row):?>
-    <tr>
-        <td><?=$row['model']?></td>
-        <td><?=$this->render('years',['years'=>$row['years']])?></td>
-    </tr>
+        <tr>
+            <td><?=$row['model']?></td>
+            <td><?=$this->render('years',['years'=>$row['years']])?></td>
+        </tr>
     <?php endforeach;?>
 </table>

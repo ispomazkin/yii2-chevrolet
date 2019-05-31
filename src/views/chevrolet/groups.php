@@ -9,10 +9,13 @@
  * @var $data array
  *
  * Шаблон для вывода групп списком
-*/
+ */
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use ispomazkin\chevrolet\ChevroletAssetBundle;
+
+ChevroletAssetBundle::register($this);
 ?>
 <?=Html::tag('h1',$data['model'].' '.$data['year'])?>
 <?=Html::tag('h2',$data['category'])?>
@@ -21,11 +24,11 @@ use yii\helpers\Url;
         <th>Группа запчастей</th>
     </tr>
     <?php foreach($data['groups'] as $group):?>
-    <tr>
-        <td><?=Html::a($group['description'],Url::to(['chevrolet/sub-groups','group_url'=>$group['url'],
-                'category_url'=>$data['category_url'],
-                'year_url'=>$data['model_url']
+        <tr>
+            <td><?=Html::a($group['description'],Url::to(['chevrolet/sub-groups','group_url'=>$group['url'],
+                    'category_url'=>$data['category_url'],
+                    'year_url'=>$data['model_url']
                 ]))?></td>
-    </tr>
+        </tr>
     <?php endforeach;?>
 </table>

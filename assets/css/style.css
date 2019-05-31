@@ -1,7 +1,38 @@
-.block{
-    max-width: 1170px;
-    margin: 0 auto;
+.chevrolet_item a:hover
+{
+    text-decoration: none;
 }
-.red {
-    color: red;
+
+.chevrolet_item a img
+{
+    width:235px;
+    height:250px;
+}
+
+.chevrolet_item a
+{
+    background-color: #fefefe;
+    border:1px solid #cecece;
+}
+
+.mobile_hidden
+{
+    display: table-cell;
+}
+
+.mobile_visible
+{
+    display:none;
+}
+
+@media(max-width:360px) {
+    .mobile_hidden
+    {
+        display: none;
+    }
+
+    .mobile_visible
+    {
+        display:table-cell;
+    }
 }
