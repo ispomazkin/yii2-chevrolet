@@ -1,4 +1,4 @@
-yii2-mytest
+yii2-chevrolet
 =================
 
 
@@ -10,11 +10,19 @@ yii2-mytest
 composer require ispomazkin/yii2-chevrolet
 ```
 
-* Выполнить миграцию для создания нужной таблицы в базе данных (консоль):
-```
-yii migrate --migrationPath=@ispomazkin/migrations --interactive=0
-```
 
-Использование
-------------------
+В конфигурации добавить параметры
+    'modules' => [
+        ......
+        'chevrolet'=>[
+            'class'=>'\ispomazkin\chevrolet\Module',
+            'host'=>'http://149.154.64.192',
+            'image_path'=>'/img/img_chevrolet',
+            'search_pattern'=>'http://site.com/search/?article={article}&brand=chevrolet'
+        ],
+        ........
+    ],
+
+Строка поиска может быть любая, вместо паттерна {article}
+будет подставляться артикул
 
