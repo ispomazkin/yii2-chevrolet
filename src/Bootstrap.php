@@ -16,20 +16,9 @@ class Bootstrap implements BootstrapInterface{
     public function bootstrap($app)
     {
 
+        $routes = require 'Routes.php';
         //Правила маршрутизации
-        $app->getUrlManager()->addRules([
-            'chevrolet' => 'chevrolet/test/index',
-        ], true);
-
-        /*
-* Регистрация модуля в приложении
-*   (вместо указания в файле frontend/config/main.php
-*/
-        $app->setModule('chevrolet', 'ispomazkin\chevrolet\Module');
-
-
-
-
+        $app->getUrlManager()->addRules($routes);
 
     }
 }
