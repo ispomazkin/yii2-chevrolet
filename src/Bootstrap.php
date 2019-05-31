@@ -18,7 +18,7 @@ class Bootstrap implements BootstrapInterface{
 
         $routes = require 'Routes.php';
         //Правила маршрутизации
-        $app->getUrlManager()->addRules($routes);
+        $app->getUrlManager()->addRules($routes, false);
 
     }
 }
