@@ -31,7 +31,10 @@ $img_src = $img_path . '/' .  $data['parts'][0]['image'];
 
 <div class="wrapper">
     <div class="row">
-        <img src="<?=$img_src?>" class="thumbnail col-sm-12 col-md-8 col-lg-6 col-xs-12" alt="">
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+            <img src="<?=$img_src?>" class="thumbnail col-sm-12 col-md-8 col-lg-6 col-xs-12" alt="">
+
+        </div>
     </div>
     <h2>Список запчастей</h2>
     <table class="table table-responsive table-bordered">
