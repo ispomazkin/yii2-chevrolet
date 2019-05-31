@@ -12,10 +12,10 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use ispomazkin\chevrolet\ChevroletAssetBundle;
+ChevroletAssetBundle::register($this);
 
 ?>
 
-ChevroletAssetBundle::register($this);
 
 
 <?php foreach($years as $year):?>
