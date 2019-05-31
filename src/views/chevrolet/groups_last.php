@@ -28,7 +28,7 @@ $collection = isset($data['subgroups']) ? $data['subgroups'] :  $data['groups']
         <div class="col-sm-6 col-md-4 col-lg-3 chevrolet_item">
             <a class="thumbnail" href="<?=Url::to(['chevrolet/parts','year_url'=>$data['model_url'],'last_url'=>$item['url']])?>">
                 <img src="<?=$img_path .'/'. $item['image']?>" height="350px" class="rounded thumbnail mx-auto d-block" title="<?=$item['description']?>" alt="<?=$data['group']?>">
-                <p><?=$item['description']?></p>
+                <p title="<?=$item['description']?>"><?=$item['description']?></p>
             </a>
         </div>
     <?php endforeach;?>

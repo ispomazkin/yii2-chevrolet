@@ -9,9 +9,16 @@
     height:250px;
 }
 
+.chevrolet_item p
+{
+    height: 50px;
+    display: inline-block;
+    overflow: hidden;
+}
+
 .chevrolet_item a
 {
-    background-color: #fefefe;
+    background-color: #f5eeee;
     border:1px solid #cecece;
 }
 
