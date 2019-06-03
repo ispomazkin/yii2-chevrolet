@@ -23,5 +23,8 @@ class Bootstrap implements BootstrapInterface{
         //Правила маршрутизации
         $app->getUrlManager()->addRules($routes, false);
 
+        //для совместимости с проектом zp24.shop
+        $app->params['relative'] = false;
+
     }
 }
