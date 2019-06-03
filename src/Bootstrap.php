@@ -16,7 +16,7 @@ class Bootstrap implements BootstrapInterface{
     public function bootstrap($app)
     {
 
-        $module = Yii::$app->module->getModule('chevrolet');
+        $module = $app->getModule('chevrolet');
         /* @var $module \ispomazkin\chevrolet\Module */
 
         $routes = require 'Routes.php';
