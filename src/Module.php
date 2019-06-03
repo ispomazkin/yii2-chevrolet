@@ -25,6 +25,12 @@ class Module extends BaseModule
      * поисковый шаблон
      */
     public $search_pattern;
+
+    /**
+     * @var string
+     * Базовый путь к каталогу
+     */
+    public $base_url='/chevrolet';
     
 
 
