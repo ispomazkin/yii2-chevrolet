@@ -48,6 +48,33 @@ class ChevroletController extends Controller
 
 
     /**
+     * @var array
+     * Паттерн для вывода различного типа title на страницах
+     * Доступны шаблоны
+     * {model},{category},{group},{subgroup},{last}
+     */
+    protected $titlePattern;
+
+    /**
+     * @var array
+     * Паттерн для вывода различного типа keywords на страницах
+     * Доступны шаблоны
+     * {model},{category},{group},{subgroup},{last}
+     */
+    protected $kwdsPattern;
+
+
+    /**
+     * @var array
+     * Паттерн для вывода различного типа description на страницах
+     * Доступны шаблоны
+     * {model},{category},{group},{subgroup},{last}
+     */
+    protected $descriptionPattern;
+
+
+
+    /**
      * @param $action
      * @return bool
      * @throws \yii\web\BadRequestHttpException
@@ -70,6 +97,12 @@ class ChevroletController extends Controller
 
         //settings for my project
         Yii::$app->params['main_page'] = false;
+        /***/
+        $this->descriptionPattern = $module->descriptionPattern;
+
+        $this->kwdsPattern = $module->kwdsPattern;
+
+        $this->titlePattern = $module->titlePattern;
 
         Yii::setAlias('@chevrolet_views', Yii::getAlias('@ispomazkin/chevrolet/views/chevrolet'))	;
 
@@ -98,139 +131,93 @@ class ChevroletController extends Controller
      */
     protected function createSeo($type,$data)
     {
+
+        $pattern = [
+            '{model}'=>isset($data['model']) ? $data['model'] : '',
+            '{year}'=>isset($data['year']) ? $data['year'] : '',
+            '{category}'=>isset($data['category']) ? $data['category'] : '',
+            '{group}'=>isset($data['group']) ? $data['group'] : '',
+            '{subgroup}'=>isset($data['subgroup']) ? $data['subgroup'] : '',
+            '{parts}'=>isset($data['subgroup'])  && $data['subgroup'] ? $data['subgroup'] : $data['group'],
+        ];
+
+
+        foreach($this->titlePattern as $key=>&$value)
+            $value = str_replace(array_keys($pattern),$pattern,$value);
+
+        foreach($this->kwdsPattern as $key=>&$value)
+            $value = str_replace(array_keys($pattern),$pattern,$value);
+
+        foreach($this->descriptionPattern as $key=>&$value)
+            $value = str_replace(array_keys($pattern),$pattern,$value);
+
+        $this->view->title = $this->titlePattern[$type];
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => $this->descriptionPattern[$type]
+        ]);
+
+        $this->view->registerMetaTag([
+            'name' => 'keywords',
+            'content' => $this->kwdsPattern[$type]
+        ]);
+
+
         switch($type)
         {
             case 'years':
-                $this->view->title = 'Запчасти Шевроле';
-                $this->view->registerMetaTag([
-                    'name' => 'description',
-                    'content' => $this->view->title
-                ]);
-
-                $this->view->registerMetaTag([
-                    'name' => 'keywords',
-                    'content' => $this->view->title
-                ]);
-                $this->view->params['breadcrumbs'][] =  $this->view->title;
                 break;
 
             case 'categories':
-                $this->view->title = 'Запчасти Шевроле';
-                $this->view->registerMetaTag([
-                    'name' => 'description',
-                    'content' => $this->view->title
-                ]);
-
-                $this->view->registerMetaTag([
-                    'name' => 'keywords',
-                    'content' => $this->view->title
-                ]);
-                $this->view->params['breadcrumbs'][] =  ['label'=>$this->view->title,'url'=>Url::to(['chevrolet/index'])];
-                $this->view->params['breadcrumbs'][] =  $data['model'].' '.$data['year'];
+                $this->view->params['breadcrumbs'][] =  ['label'=>$this->titlePattern['years'],'url'=>Url::to(['chevrolet/index'])];
                 break;
 
             case 'groups':
-                $this->view->title = 'Запчасти Шевроле';
-                $this->view->registerMetaTag([
-                    'name' => 'description',
-                    'content' => $this->view->title
-                ]);
-
-                $this->view->registerMetaTag([
-                    'name' => 'keywords',
-                    'content' => $this->view->title
-                ]);
-
-                $this->view->params['breadcrumbs'][] =  ['label'=>$this->view->title,'url'=>Url::to(['chevrolet/index'])];
-
-
-                $this->view->params['breadcrumbs'][] =  ['label'=>$data['model'].' '.$data['year'],'url'=>Url::to(['chevrolet/categories',
+                $this->view->params['breadcrumbs'][] =  ['label'=>$this->titlePattern['years'],'url'=>Url::to(['chevrolet/index'])];
+                $this->view->params['breadcrumbs'][] =  ['label'=>$this->titlePattern['categories'],'url'=>Url::to(['chevrolet/categories',
                     'year_url'=>$data['model_url'],
                 ])];
-
-                $this->view->params['breadcrumbs'][] = $data['category'];
                 break;
 
             case 'sub-groups':
-                $this->view->title = 'Запчасти Шевроле';
-                $this->view->registerMetaTag([
-                    'name' => 'description',
-                    'content' => $this->view->title
-                ]);
-
-                $this->view->registerMetaTag([
-                    'name' => 'keywords',
-                    'content' => $this->view->title
-                ]);
-
-                $this->view->params['breadcrumbs'][] =  ['label'=>$this->view->title,'url'=>Url::to(['chevrolet/index'])];
-
-
-                $this->view->params['breadcrumbs'][] =  ['label'=>$data['model'].' '.$data['year'],'url'=>Url::to(['chevrolet/categories',
+                $this->view->params['breadcrumbs'][] =  ['label'=>$this->titlePattern['years'],'url'=>Url::to(['chevrolet/index'])];
+                $this->view->params['breadcrumbs'][] =  ['label'=>$this->titlePattern['categories'],'url'=>Url::to(['chevrolet/categories',
                     'year_url'=>$data['model_url'],
                 ])];
-
                 $this->view->params['breadcrumbs'][] = [
-                    'label'=> $data['category'],
+                    'label'=>$this->titlePattern['groups'],
                     'url' => Url::to(['chevrolet/groups','year_url'=>$data['model_url'],'category_url'=>$data['category_url'],
                     ])
                 ];
-                $this->view->params['breadcrumbs'][] = $data['group'];
                 break;
 
             case 'parts' :
-                $this->view->title = 'Запчасти Шевроле';
-                $this->view->registerMetaTag([
-                    'name' => 'description',
-                    'content' => $this->view->title
-                ]);
-
-                $this->view->registerMetaTag([
-                    'name' => 'keywords',
-                    'content' => $this->view->title
-                ]);
-
-                $this->view->params['breadcrumbs'][] =  ['label'=>$this->view->title,'url'=>Url::to(['chevrolet/index'])];
-
-
-                $this->view->params['breadcrumbs'][] =  ['label'=>$data['model'].' '.$data['year'],'url'=>Url::to(['chevrolet/categories',
+                $this->view->params['breadcrumbs'][] =  ['label'=>$this->titlePattern['years'],'url'=>Url::to(['chevrolet/index'])];
+                $this->view->params['breadcrumbs'][] =  ['label'=>$this->titlePattern['categories'],'url'=>Url::to(['chevrolet/categories',
                     'year_url'=>$data['model_url'],
                 ])];
-
                 $this->view->params['breadcrumbs'][] = [
-                    'label'=> $data['category'],
+                    'label'=>$this->titlePattern['groups'],
                     'url' => Url::to(['chevrolet/groups','year_url'=>$data['model_url'],'category_url'=>$data['category_url'],
                     ])
                 ];
-
 
 
                 if (isset($data['subgroup'])  && $data['subgroup'])
                 {
 
-
                     $this->view->params['breadcrumbs'][] = [
-                        'label'=> $data['group'],
-                        'url' => Url::to(['chevrolet/sub-groups',
-                            'year_url'=>$data['model_url'],
-                            'category_url'=>$data['category_url'],
+                        'label'=> $this->titlePattern['sub-groups'],
+                        'url' => Url::to(['chevrolet/sub-groups','year_url'=>$data['model_url'],'category_url'=>$data['category_url'],
                             'group_url'=>$data['group_url']
                         ])
                     ];
 
-                    $this->view->params['breadcrumbs'][] = $data['subgroup'];
-
-
                 }
-                else
-                {
-                    $this->view->params['breadcrumbs'][] = $data['group'];
-
-                }
-                break;
-
 
         }
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
     }
 
     /**
