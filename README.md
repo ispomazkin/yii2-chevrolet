@@ -12,8 +12,8 @@ composer require ispomazkin/yii2-chevrolet
 
 
 В конфигурации common/config/main-local.php добавить параметры. 
+
     'modules' => [
-        ......
         'chevrolet'=>[
             'class'=>'\ispomazkin\chevrolet\Module',
             'host'=>'http://149.154.64.192',
@@ -21,7 +21,6 @@ composer require ispomazkin/yii2-chevrolet
             'search_pattern'=>'http://site.com/search/?article={article}&brand=chevrolet',
             'base_url'=>'/chevrolet'
         ],
-        ........
     ],
 
 Строка поиска может быть любая, вместо паттерна {article} будет подставляться артикул.
@@ -35,7 +34,7 @@ composer require ispomazkin/yii2-chevrolet
             'host'=>'http://149.154.64.192',
             'image_path'=>'/img/img_chevrolet',
             'search_pattern'=>'http://site.com/search/?article={article}&brand=chevrolet',
-            'base_url'=>'/chevrolet'
+            'base_url'=>'/chevrolet',
             'titlePattern=>[
                   'years'=>'Запчасти Шевроле',
                   'categories'=>'{model} {year}',
